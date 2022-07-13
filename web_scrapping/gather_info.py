@@ -18,8 +18,8 @@ class ScrapperClass():
 
 def Main():
     pass
+print(1)
 
 
 if __name__=="__main__":
-
     Main()
