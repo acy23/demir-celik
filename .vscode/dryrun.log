@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/senery/Desktop/demir-celik'
+make: Leaving directory `/Users/senery/Desktop/demir-celik'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+
