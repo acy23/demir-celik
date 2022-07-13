@@ -14,6 +14,7 @@ class ScrapperClass():
         soup = BeautifulSoup(r.content, 'html5lib')
 
     def CreateConnector(self):
+        pass
         
 
 def Main():
@@ -21,5 +22,5 @@ def Main():
 
 
 if __name__=="__main__":
-
     Main()
+    print(1)

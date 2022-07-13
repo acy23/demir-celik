@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-import os 
+import os
+import environ
+env = environ.Env()
+environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -69,21 +72,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'webstore.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbtest', 
-        'USER': 'postgres', 
-        'PASSWORD': '1234',
-        'HOST': '127.0.0.1', 
-        'PORT': '5432',
-    }
-}
 
+DATABASES = {
+        'default': {
+            'ENGINE': 'djongo',
+            'NAME': env('DB_NAME'),
+            'ENFORCE_SCHEMA': False,
+            'CLIENT': {
+                'host': env('HOST')
+            }  
+        }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
