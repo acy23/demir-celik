@@ -19,19 +19,21 @@ class ScrapperClass():
         soup = BeautifulSoup(r.content, 'html5lib')
 
     def CreateConnector(self):
-        client_mongo = MongoClient(self.host)
-        db=client_mongo.admin
-        serverStatusResult=db.command("serverStatus")
-        pprint(serverStatusResult)
-        self.client=client_mongo
-
+        myclient = MongoClient(self.host)
+        self.client=myclient
+    
+    def InsertElements(self):
+        mydb = self.client["testdb"]
+        mycol = mydb["TestCollection"]
+        mydict = { "name": "John", "address": "Highway 420" }
+        x = mycol.insert_one(mydict)
+        print(x)
 
 def Main():
     scrapper=ScrapperClass()
     scrapper.CreateConnector()
+    scrapper.InsertElements()
     
-
-
 if __name__=="__main__":
     Main()
 
