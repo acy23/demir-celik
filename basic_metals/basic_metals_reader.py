@@ -22,9 +22,7 @@ class ReaderClient():
         mycol = mydb["TestCollection"]
         myquery = { "name": "John" }
         mydoc = mycol.find(myquery)
-        for x in mydoc:
-            print(x)
-
+        return mydoc
 
 def Main():
     reader_client=ReaderClient()
