@@ -1,3 +1,12 @@
 from django.shortcuts import render
 
-# Create your views here.
+from rest_framework.views import APIView
+from .models import Basic_metals
+"""
+class GetDataAPIView(APIView):
+    def get(self, request):
+"""
+
+
+
+
