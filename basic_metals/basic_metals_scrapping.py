@@ -5,6 +5,10 @@ from pymongo import MongoClient
 from pprint import pprint
 import environ
 import time
+import os
+import dryscrape
+from urllib.request import Request, urlopen
+from urllib import parse
 from datetime import datetime
 
 class ScrapperClass():
@@ -18,36 +22,50 @@ class ScrapperClass():
     def GatherRespectiveData(self):
         while True:
             try:
-                r = requests.get(self.url)
-                soup = BeautifulSoup(r.content, 'html5lib')
-                #get modified in $oooon
-                table = soup.find('td', attrs = {'class':'b'}) 
-                print(table)
-                self.InsertElements()
+                session = dryscrape.Session()
+                session.visit(self.url)
+                response = session.body()
+                soup = BeautifulSoup(response)
+                soup.find('td', attrs={"class" : "b"})
+                break
+                #self.InsertElements()
             except Exception as err:
                 print(err)
+                #<span class="data-table-row-cell__value">2,951.00</span>
 
-                
     def CreateConnector(self):
         myclient = MongoClient(self.host)
         self.client=myclient
 
 
-    def InsertElements(self,):
+    def InsertElements(self):
         mydb = self.client["testdb"]
-        mycol = mydb["TestCollection"]
+        mycol = mydb["service1_api_basic_metals"]
         mylist=[]
-        for i in range(5):
-            dt = datetime.now()
-            ts = datetime.timestamp(dt)
-            mylist.append({ "_id": str(ts), "name": "Yaman", "Roll No": "1001", "Branch":"CSE"})
+        dic={   
+                "id": 10,
+                "category": "Yaman",
+                "price": 1001,
+                "parity":"CSE"
+                }
+        for i in range(20,30):
+            #dt = datetime.now()
+            #ts = datetime.timestamp(dt)
+            mylist.append(
+                {
+                "id": i,
+                "category": "Yaman Sener",
+                "price": 1001,
+                "parity":"CSE"
+                }
+            )
         x = mycol.insert_many(mylist)
 
 def Main():
     scrapper=ScrapperClass()
     scrapper.CreateConnector()
     scrapper.GatherRespectiveData()
-    scrapper.InsertElements()
+    #scrapper.InsertElements()
     
 if __name__=="__main__":
     Main()
